@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCM Playlist</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+
+    .playlist-section {
+      background: black ;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .playlist-list {
+      list-style: none;
+      padding: 0;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .playlist-list li {
+      margin-bottom: 25px;
+      background: #111;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .playlist-list li:hover {
+      background: #222;
+      transform: scale(1.03);
+    }
+
+    .song-title {
+      color: #00cd3c;
+      font-size: 16px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 8px;
+      outline: none;
+
+    }
+
+    img {
+      width: 50%;
+      height: 55%;
+      margin:0px;
+    }
+  </style>
+</head>
+<body>
+  <section id="playlist" class="playlist-section">
+    <h2 class="section-title">
+      🎶 𝐂𝐂𝐌 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 ✨💙<br>
+     When Your Heart Feels Heavy, Let These Worship Songs Hold You
+    </h2>
+
+    <header><img src="play CD.png" alt="CCM 앨범 이미지"></header>
+
+    <ul class="playlist-list">
+      <li>
+        <p class="song-title" onclick="playMusic('Who You Say I Am - Hillsong Worship.mp3')">
+          Who You Say I Am - Hillsong Worship
+        </p>
+      </li>
+
+      <li>
+        <p class="song-title" onclick="playMusic('Matt Redman - 10,000 Reasons (Bless the Lord).mp3')">
+          10000 Reasons - Matt Redman
+        </p>
+      </li>
+
+      <li>
+        <p class="song-title" onclick="playMusic('Leeland - Way Maker (Official Live Video).mp3')">
+          Way Maker - Leeland
+        </p>
+      </li>
+
+      <li>
+        <p class="song-title" onclick="playMusic('What A Beautiful Name - Hillsong Worship.mp3')">
+          What A Beautiful Name - Hillsong Worship
+        </p>
+      </li>
+
+      <li>
+        <p class="song-title" onclick="playMusic('Conor.mp3')">
+          Cornerstone - Hillsong Worship
+        </p>
+      </li>
+
+      <li>
+        <p class="song-title" onclick="playMusic('From The Inside Out - Hillsong UNITED.mp3')">
+          From The Inside Out - Hillsong UNITED
+        </p>
+      </li>
+
+    <li>
+        <p class="song-title" onclick="playMusic('All My Life ｜ REVIVAL ｜ Planetshakers Official Music Video.mp3')">
+          All My Life - planetshakerstv
+        </p>
+      </li>
+
+
+    <li>
+        <p class="song-title" onclick="playMusic('ENDLESS PRAISE ｜ Planetshakers Official Video.mp3')">
+          ENDLESS PRAISE - planetshakerstv
+
+        </p>
+      </li>
+    
+
+    <li>
+        <p class="song-title" onclick="playMusic('WALK ON WATER ｜ Live From Praise Party 2020 ｜ Elevation Worship & ELEVATION RHYTHM.mp3')">
+          WALK ON WATER - Elevation Worship
+        </p>
+      </li>
+   
+
+    <li>
+        <p class="song-title" onclick="playMusic('')">
+         Jehovah (feat. Chris Brown) | Elevation Worship
+        </p>
+      </li>
+    
+
+    </ul>
+
+    <!-- 숨겨진 공용 오디오 플레이어 -->
+    <audio id="player" controls>
+      브라우저가 오디오 태그를 지원하지 않습니다.
+    </audio>
+  </section>
+
+  <script>
+    function playMusic(src) {
+      const player = document.getElementById('player');
+      player.src = src;   // 클릭한 노래의 mp3로 변경
+      player.play();      // 재생 시작
+    }
+  </script>
+</body>
+</html>

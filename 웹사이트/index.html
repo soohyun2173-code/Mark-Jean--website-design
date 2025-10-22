@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worship Music - 찬양의 집</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - 맑은 분위기 */
+        header {
+            background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 30%, #e0f6ff 70%, #f0f8ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.3"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.2"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.4"/></svg>') repeat;
+            animation: heavenlyFloat 25s linear infinite;
+        }
+
+        @keyframes heavenlyFloat {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(-100px) rotate(360deg); }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 14, 26, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav.scrolled .nav-menu a,
+        .nav.scrolled .logo {
+            color: #ffffff !important;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c5282;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #2c5282;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #1a365d;
+            transform: translateY(-2px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #2c5282;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease 0.5s forwards;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease 1s forwards;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(66, 153, 225, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content - Spotify Style */
+        main {
+            background: #0a0e1a;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .music-card {
+            background: linear-gradient(145deg, #1a1f36 0%, #232946 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #2d3748;
+        }
+
+        .music-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+        }
+
+        .music-card:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(145deg, #232946 0%, #2d3748 100%);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .music-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .music-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .music-card p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-decoration:none;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #38b2ac, #319795);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(135deg, #319795, #2c7a7b);
+            transform: scale(1.05);
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(145deg, #1a202c 0%, #2d3748 100%);
+            padding: 1rem 2rem;
+            border-top: 2px solid #4a5568;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .music-player.active {
+            transform: translateY(0);
+        }
+
+        .player-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .current-song {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .current-song img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+        }
+
+        .song-info h4 {
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+
+        .song-info p {
+            color: #a0aec0;
+            font-size: 0.8rem;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .volume-control {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* YouTube Player Container */
+        .youtube-player {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 2000;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .youtube-player.active {
+            display: block;
+        }
+
+        .player-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1999;
+            display: none;
+        }
+
+        .player-overlay.active {
+            display: block;
+        }
+
+        .close-player {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        /* Playlist Section */
+        .playlist-section {
+            margin: 3rem 0;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .playlist-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .playlist-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-right: 1rem;
+        }
+
+        .playlist-info {
+            flex: 1;
+        }
+
+        .playlist-info h4 {
+            margin-bottom: 0.3rem;
+        }
+
+        .playlist-info p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .player-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .youtube-player {
+                width: 90vw;
+                height: 50vh;
+            }
+        }
+
+            .button-{
+            color:white;
+            }
+     .audio {
+      width: 100%;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .login{
+        text-align: center;
+
+    }
+
+    .container-1{
+        color:#3182ce
+    }
+
+    .section-title {
+    font-family: 'Nunito', sans-serif; /* 둥근 글씨체 */
+    font-weight: 600;  /* 굵기 조절 가능 */
+    font-size: 28px;   /* 원하는 크기 */
+    color: #000;       /* 글자 색 */}
+
+    </style>
+</head>
+<body>
+<header class="container-1">
+<button id="button-button">Login</button>
+</header>
+
+    <nav class="nav" id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">🎵 Worship Music</a>
+            <ul class="nav-menu">
+                <li><a href="#home">home</a></li>
+                <li><a href="#songs">Worshipsong</a></li>
+                <li><a href="#playlist">Playlist</a></li>
+                <li><a href="#about">Instruction</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>A Heartfelt Worship<br>to God</h1>
+                <p>"Sing and make melody to one another with psalms, hymns, and spiritual songs<br> sing and praise the Lord with all your heart"</p>
+                <a href="#songs" class="hero-btn">Beginning to listen to God’s praise</a>
+            </div>
+        </div>
+    </header>
+        <div class="container">
+            <section id="songs">
+                <h2 class="section-title">🙏 Recommended Praise Songs</h2>
+                <div class="music-grid">
+                    <div class="music-card" data-youtube="dQw4w9WgXcQ" data-title="놀라운 은혜" data-artist="어메이징 그레이스">
+                        <img src="website.png", svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23FFD700'/><text x='150' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='Arial'>🎵</text><text x='150' y='130' text-anchor='middle' dy='.3em' fill='white' font-size='16' font-family='Arial'>WELOVE</text></svg>
+                        <audio class="playlist-intro" src="Phil Wickham - This Is Amazing Grace (Official Music Video).mp3" h3>This is Amazing Grace</h3></audio>
+                        <h3>This is Amazing Grace</h3>
+                        <button>▶ </button>
+                    </div>
+                    
+
+                    <div class="music-card" data-youtube="dQw4w9WgXcQ" data-title="주 안에 있는 나에게" data-artist="소망교회">
+                        <img src="jehoja.png",svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='%234A90E2'/><text x='150' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='Arial'>✝️</text><text x='150' y='130' text-anchor='middle' dy='.3em' fill='white' font-size='16' font-family='Arial'>In Christ Alone</text></svg>" alt="주 안에 있는 나에게">
+                        <li><h3 >Jehovah</h3></li>
+                        
+                        <button class="play-btn" onclick="playMusic(this)">▶ </button>
+                    </div>
+
+                    <div class="music-card" data-youtube="dQw4w9WgXcQ" data-title="주의 사랑" data-artist="힐송 워십">
+                        <img src="ChatGPT Image 2025년 10월 21일 오후 11_39_57.png",svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23E74C3C'/><text x='150' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='Arial'>❤️</text><text x='150' y='130' text-anchor='middle' dy='.3em' fill='white' font-size='16' font-family='Arial'>Your Love</text></svg>" alt="주의 사랑">
+                        <h3 class="playlist-intro" src="Praise (feat. Brandon Lake, Chris Brown & Chandler Moore) ｜ Elevation Worship.mp3">Praise</h3>
+                        <p>Praise</p>
+                        <button>▶ </button>
+                    </div>
+
+                    <div class="music-card" data-youtube="dQw4w9WgXcQ" data-title="십자가" data-artist="전통 찬송">
+                        <img src="ChatGPT Image 2025년 10월 21일 오후 11_53_47.png",svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' rect width='300' height='200' fill='%238E44AD'text x='150' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='Arial'text x='150' y='130' text-anchor='middle' dy='.3em' fill='white' font-size='16' font-family='Arial'>The Cross</text></svg>
+                        <h3> House of the God</h3>
+                        <button >▶</button>
+                    </div>
+ 
+                    </div>
+                </div>
+            </section>
+
+            <section id="playlist" class="playlist-section">
+                <h2 class="section-title">🎶 Famouse Playlist</h2>
+                <div class="playlist-item" onclick="playMusic(this)" data-youtube="dQw4w9WgXcQ" data-title="𝐂𝐂𝐌 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭] 첫 곡부터 둠칫하게 되는 리드미컬 신나는 예배찬양 플레이리스트✨💙 | 듣기만 해도 기분 좋아지는 찬양모음🎵" data-artist="Various Artists">
+                    <img src="",svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect width='60' height='60' fill='%23FF6B6B'/><text x='30' y='35' text-anchor='middle' dy='.3em' fill='white' font-size='20' font-family='Arial'>🎵</text></svg>
+                    <div class="playlist-info">
+                        <a href="curve.html" h4>𝐂𝐂𝐌 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭] A feel-good worship playlist that makes you groove from the very first beat.✨💙 | 듣기만 해도 기분 좋아지는 찬양모음🎵</h4>
+                        
+                    </div>
+                </div>
+
+                <div class="playlist-item" onclick="playMusic(this)" data-youtube="dQw4w9WgXcQ" data-title="새벽 기도 찬양" data-artist="Various Artists">
+                    <img src="data:image/svg+xml",svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect width='60' height='60' fill='%234ECDC4'/><text x='30' y='35' text-anchor='middle' dy='.3em' fill='white' font-size='20' font-family='Arial'>🌅</text></svg>
+                    <div class="playlist-info">
+                        <a href="woe.html" h4>𝐂𝐂𝐌 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 When Your Heart Feels Heavy, Let These Worship Songs Hold You</h4>
+                       
+                    </div>
+                </div>
+           
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <div class="player-content">
+            <div class="current-song">
+                <img src="data:image/svg+xml",svg xmlns='http://www.w3.org/2000/mesvg' viewBox='0 0 60 60'><rect width='60' height='60' fill='%23FFD700'/><text x='30' y='35' text-anchor='middle' dy='.3em' fill='white' font-size='20' font-family='Arial'>🎵</text></svg>
+                <div class="song-info">
+                    <h4 id="currentTitle">Haven't songs</h4>
+                    <p id="currentArtist">Artist</p>
+                </div>
+            </div>
+            <!-- youtube player -->
+            <div class="controls">
+  <button onclick="prevSong()">⏮️</button>
+  <button id="playPauseBtn" onclick="togglePlay()">▶</button>
+  <button onclick="nextSong()">⏭️</button>
+            </div>
+            <!-- speaker -->
+            <div class="volume-control">
+  <span>🔈</span>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+  <span>🔊</span>
+</div>
+
+    <!-- YouTube Player Overlay -->
+    <div class="player-overlay" id="playerOverlay" onclick="closeYouTubePlayer()"></div>
+    <div class="youtube-player" id="youtubePlayer">
+        <button class="close-player" onclick="closeYouTubePlayer()">✕</button>
+        <iframe id="youtubeIframe" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <script>
+
+ function playMusic(src) {
+      const player = document.getElementById('player');
+      player.src = src;
+      player.play();
+    }
+
+        let currentSong = null;
+        let isPlaying = false;
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Play music function
+        function playMusic(element) {
+            const title = element.dataset.title;
+            const artist = element.dataset.artist;
+            const youtubeId = element.dataset.youtube;
+            const img = element.querySelector('img')?.src || element.querySelector('img')?.getAttribute('src');}
+
+            currentSong = {
+                title: title,
+                artist: artist,
+                youtubeId: youtubeId,
+                img: img
+            };
+
+            // Update player UI
+            document.getElementById('currentTitle').textContent = title;
+            document.getElementById('currentArtist').textContent = artist;
+            document.getElementById('currentImg').src = img;
+
+            // Show player
+            document.getElementById('musicPlayer').classList.add('active');
+            
+            // 곡 재생
+function playSong() {
+  audio.src = playlistData[currentIndex].src;
+  audio.play();
+  isPlaying = true;
+  playPauseBtn.textContent = "❚❚";
+  highlightSong();
+}
+
+ // 실시간 순위 변화 애니메이션
+    const arrows = ["🔺1", "🔻1", "🔺2", "🔻2", "🔺3"];
+    let idx = 0;
+    setInterval(() => {
+      realtimeInfo.textContent = `실시간 순위 변화: ${arrows[idx]}`;
+      idx = (idx + 1) % arrows.length;
+    }, 2000);
+
+    // 검색창 클릭 시 표시
+    searchInput.addEventListener('focus', () => {
+      realtimeInfo.style.display = 'block';
+    });
+    searchInput.addEventListener('blur', () => {
+      setTimeout(() => realtimeInfo.style.display = 'none', 1000);
+    });
+
+    // 재생 제어
+    playButtons.forEach(btn => {
+      btn.addEventListener('click', e => {
+        const item = e.target.closest('.chart-item');
+        const src = item.getAttribute('data-src');
+        const title = item.querySelector('.song-title').textContent;
+
+        if (nowPlaying === src && !audio.paused) {
+          audio.pause();
+          btn.textContent = '▶';
+          playToggle.textContent = '▶';
+          return;
+        }
+
+        playButtons.forEach(b => b.textContent = '▶');
+        btn.textContent = '⏸️';
+        playToggle.textContent = '⏸️';
+        nowPlaying = src;
+        audio.src = src;
+        audio.play();
+        currentSong.textContent = `🎵 ${title}`;
+      });
+    });
+
+    // 미니 플레이어에서 재생/일시정지
+    playToggle.addEventListener('click', () => {
+      if (!nowPlaying) return;
+      if (audio.paused) {
+        audio.play();
+        playToggle.textContent = '⏸️';
+      } else {
+        audio.pause();
+        playToggle.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('play', () => console.log("재생 시작:", audio.src));
+audio.addEventListener('error', e => console.error("오류 발생:", e));
+
+
+    // 좋아요 애니메이션
+    likeButtons.forEach(btn => {
+      let count = 0;
+      btn.addEventListener('click', () => {
+        count++;
+        btn.textContent = '💚 ' + count;
+        const anim = document.createElement('span');
+        anim.classList.add('like-anim');
+        anim.textContent = '+1';
+        btn.appendChild(anim);
+        setTimeout(() => anim.remove(), 800);
+      });
+    });
+
+    // 재생 진행바 애니메이션
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = `${percent}%`;
+      }
+    });
+
+    audio.addEventListener('ended', () => {
+      playToggle.textContent = '▶';
+      progress.style.width = '0%';
+    });
+        // YouTube Player functions
+        function openYouTubePlayer() {
+            if (currentSong) {
+                const iframe = document.getElementById('youtubeIframe');
+                iframe.src = `https://www.youtube.com/embed/${currentSong.youtubeId}?autoplay=1`;
+                
+                document.getElementById('playerOverlay').classList.add('active');
+                document.getElementById('youtubePlayer').classList.add('active');
+            } else {
+                alert('먼저 음악을 선택해주세요.');
+            }
+        }
+
+        function closeYouTubePlayer() {
+            document.getElementById('playerOverlay').classList.remove('active');
+            document.getElementById('youtubePlayer').classList.remove('active');
+            document.getElementById('youtubeIframe').src = '';
+        }
+
+        // Add entrance animations to cards
+        function addScrollAnimation() {
+            const cards = document.querySelectorAll('.music-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s ease';
+                observer.observe(card);
+            });
+
+            button
+        }
+
+        // Initialize animations
+        addScrollAnimation();
+
+    </script>
+</body>
+</html>

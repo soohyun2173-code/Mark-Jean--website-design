@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCM Playlist</title>
+  <style>
+      body {
+        margin: 0;
+        background-color: black;
+        font-family: Arial, sans-serif;
+      }
+
+      /* 🔹 상단 네비게이션 */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95); /* ← 수정됨 (black(255...) 오타 수정) */
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #00cd3c;
+        text-decoration: none;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-menu a:hover {
+        color: #00cd3c;
+        transform: translateY(-2px);
+      }
+
+      /* 🔹 플레이리스트 구역 */
+      .playlist-section {
+        background: black;
+        padding: 120px 20px 40px; /* nav 때문에 위쪽 여백 추가 */
+        text-align: center;
+      }
+
+      .section-title {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 18px;
+        line-height: 1.4;
+      }
+
+      .playlist-list {
+        list-style: none;
+        padding: 0;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .playlist-list li {
+        margin-bottom: 18px;
+        background: #111;
+        border-radius: 10px;
+        padding: 12px;
+        transition: 0.3s;
+      }
+
+      .playlist-list li:hover {
+        background: #1c1c1c;
+        transform: scale(1.03);
+      }
+
+      .song-title {
+        color: #00cd3c;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+        margin: 0;
+      }
+
+      .controls {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      button:hover {
+        transform: scale(1.2);
+      }
+
+      .title {
+        font-size: 20px;
+        margin-top: 20px;
+        color: #ccc;
+      }
+
+      audio {
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 25px;
+        outline: none;
+      }
+
+prevbtn{
+  position:left fixed;
+}
+playpausebtn{
+  position:center fixed;
+}
+nextbtn{
+  position:right fixed;
+}
+  </style>
+</head>
+<body>
+  <!-- ✅ 상단 네비게이션 -->
+  <nav class="nav" id="navbar">
+    <div class="nav-content">
+      <a href="index.html" class="logo">🎵 Worship Music</a>
+      <ul class="nav-menu">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="#songs">찬양곡</a></li>
+        <li><a href="#playlist">플레이리스트</a></li>
+        <li><a href="#about">소개</a></li>
+        <li><a href="list.html">팀별</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ✅ 플레이리스트 본문 -->
+  <section id="playlist" class="playlist-section">
+    <h2 class="section-title">
+      🎶 𝐂𝐂𝐌 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 ✨💙<br>
+      A feel-good worship playlist that makes you groove from the very first beat 🎵
+    </h2>
+
+    <ul class="playlist-list">
+      <li><p class="song-title" onclick="playMusic('Praise (feat. Brandon Lake, Chris Brown & Chandler Moore) ｜ Elevation Worship.mp3')">PRAISE</p></li>
+
+      <li><p class="song-title" onclick="playMusic('Phil Wickham - This Is Amazing Grace (Official Music Video).mp3')">This Is Amazing Grace</p></li>
+
+      <li><p class="song-title" onclick="playMusic('Open the Eyes of My Heart.mp3')">Open The Eyes Of My Heart</p></li>
+
+      <li><p class="song-title" onclick="playMusic('Wake (Live from Summercamp) - Hillsong Young & Free.mp3')">Wake</p></li>
+
+      <li><p class="song-title" onclick="playMusic('I Thank God (feat. Maverick City Music & UPPERROOM) ｜ TRIBL.mp3')">I Thank God</p></li>
+
+      <li><p class="song-title" onclick="playMusic('My Testimony ｜ Live from Elevation Ballantyne ｜ Elevation Worship.mp3')">My Testimony</p></li>
+
+      <li><p class="song-title" onclick="playMusic('All My Life ｜ REVIVAL ｜ Planetshakers Official Music Video.mp3')">All My Life - Planetshakers</p></li>
+
+      <li><p class="song-title" onclick="playMusic('ENDLESS PRAISE ｜ Planetshakers Official Video.mp3')">Endless Praise - Planetshakers</p></li>
+
+      <li><p class="song-title" onclick="playMusic('WALK ON WATER ｜ Live From Praise Party 2020 ｜ Elevation Worship & ELEVATION RHYTHM.mp3')">Walk On Water - Elevation Worship</p></li>
+
+      <li><p class="song-title" onclick="playMusic('Jehovah (feat. Chris Brown) ｜ Elevation Worship.mp3')">Jehovah (feat. Chris Brown)</p></li>
+
+      <li><p class="song-title" onclick="playMusic('ALL ABOUT YOU ｜ Official Planetshakers Video.mp3')">All About You</p></li>
+
+       <li><p class="song-title" onclick="playMusic('PROPHESY ｜ Official Planetshakers Music Video.mp3')">PROPHESY | Official Planetshakers Music Video</p></li>
+
+        <li><p class="song-title" onclick="playMusic('Another One From The Gallery ｜ Elevation Worship.mp3')">Another One From The Gallery | Elevation Worship</p></li>
+
+         <li><p class="song-title" onclick="playMusic('Terrian - Big God (Official Music Video).mp3')">big God</p></li>
+
+          <li><p class="song-title" onclick="playMusic('Planetshakers ｜ Only Way ｜ Official Music Video.mp3')">Only Do it</p></li>
+
+           <li><p class="song-title" onclick="playMusic('Casting Crowns - Nobody (Official Music Video) ft. Matthew West.mp3')">Casting Crowns - Nobody (Official Music Video) ft. Matthew West</p></li>
+    </ul>
+
+        <!-- 공용 오디오 플레이어 -->
+      <section class="controls">
+  <button id="prevbtn">⏮️</button>
+  <button id="playPausebtn">▶️</button>
+  <button id="nextbtn">⏭️</button>
+</section>
+<p id="songTitle" class="song-title">현재 곡: 첫 번째 곡</p>
+<audio id="audio"></audio>
+
+  </section>
+
+  
+
+
+  <script>
+    const audio = document.getElementById("audio");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const songTitle = document.getElementById("songTitle");
+
+let currentSong = 0;
+const songs = [
+  { title: "첫 번째 곡", file: "music1.mp3" },
+  { title: "두 번째 곡", file: "music2.mp3" },
+  { title: "세 번째 곡", file: "music3.mp3" }
+];
+
+// 곡 리스트 클릭용
+function playMusic(src) {
+  const songIndex = songs.findIndex(s => s.file === src);
+  if (songIndex !== -1) currentSong = songIndex;
+  audio.src = src;
+  audio.play();
+  playPauseBtn.textContent = "⏸️";
+}
+
+// 플레이어용 곡 변경
+function changeSong(index) {
+  const song = songs[index];
+  audio.src = song.file;
+  songTitle.textContent = `현재 곡: ${song.title}`;
+  audio.play();
+  playPauseBtn.textContent = "⏸️";
+}
+
+// 재생 / 일시정지
+playPauseBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "⏸️";
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "▶️";
+  }
+});
+
+// 이전 / 다음 곡
+prevBtn.addEventListener("click", () => {
+  currentSong = (currentSong - 1 + songs.length) % songs.length;
+  changeSong(currentSong);
+});
+
+nextBtn.addEventListener("click", () => {
+  currentSong = (currentSong + 1) % songs.length;
+  changeSong(currentSong);
+});
+
+// 자동 다음 곡
+audio.addEventListener("ended", () => {
+  currentSong = (currentSong + 1) % songs.length;
+  changeSong(currentSong);
+});
+
+// 초기화
+changeSong(currentSong);
+
+ audio.addEventListener('play', () => console.log(" ", audio.src));
+audio.addEventListener('error', e => console.error("", e));
+  </script>
+</body>
+</html>
